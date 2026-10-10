@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>退休金小學堂</title>
+<meta name="description" content="用四堂課，看懂退休金夠不夠用。給長輩的簡單理財入門。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.hero{padding:40px 0 10px}
+.hero h1{font-size:clamp(32px,9vw,46px);font-weight:900;line-height:1.25;margin:0 0 14px}
+.hero p{font-size:21px;color:var(--soft);margin:0;line-height:1.7}
+.progress-line{display:flex;align-items:center;gap:12px;margin:26px 0 8px}
+.progress-line .txt{font-size:18px;color:var(--soft);white-space:nowrap}
+.progress-line .track{flex:1;height:12px;border-radius:6px;background:var(--rule);overflow:hidden}
+.progress-line .track i{display:block;height:100%;border-radius:6px;background:var(--grow);width:0}
+@media (prefers-reduced-motion:no-preference){ .progress-line .track i{transition:width .8s ease-out} }
+
+.cards{margin-top:22px}
+.lcard{display:flex;gap:16px;align-items:flex-start;text-decoration:none;color:var(--ink);
+  background:var(--card);border:2px solid var(--rule);border-radius:16px;
+  padding:20px 18px;margin-bottom:14px}
+.lcard:active{transform:translateY(1px)}
+.lcard.done{border-color:var(--grow)}
+.lcard .num{flex:none;width:52px;height:52px;border-radius:14px;background:var(--rule);color:var(--ink);
+  display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900}
+.lcard.done .num{background:var(--grow);color:#fff}
+.lcard .body{flex:1;min-width:0}
+.lcard .body b{display:block;font-size:23px;font-weight:700;line-height:1.4}
+.lcard .body p{margin:4px 0 0;font-size:18px;color:var(--soft);line-height:1.6}
+.lcard .body em{font-style:normal;display:inline-block;margin-top:8px;font-size:16px;
+  font-weight:700;color:var(--grow)}
+.lcard .go{flex:none;align-self:center;font-size:28px;color:var(--rule)}
+
+.tool{border-left:7px solid var(--gold)}
+.tool .num{background:var(--gold);color:#fff;font-size:26px}
+
+.sect{font-size:19px;font-weight:700;color:var(--soft);margin:30px 0 12px;
+  padding-bottom:8px;border-bottom:2px solid var(--rule)}
+
+.resetbar{margin-top:26px}
+.resetbar button{width:100%;font:inherit;font-size:17px;font-weight:500;padding:13px;
+  background:transparent;color:var(--soft);border:2px solid var(--rule);border-radius:12px;cursor:pointer}
+.foot{font-size:16px;color:var(--soft);line-height:1.7;margin-top:26px;
+  border-top:1px solid var(--rule);padding-top:18px;padding-bottom:40px}
+</style>
+</head>
+<body data-lesson="home">
+<main style="flex:1;width:100%;max-width:620px;margin:0 auto;padding:0 22px">
+
+  <div class="hero">
+    <h1>退休金小學堂</h1>
+    <p>四堂課，看懂自己的退休金夠不夠用。<br>一次只看一件事，按「下一步」就好。</p>
+  </div>
+
+  <div class="progress-line">
+    <span class="txt" id="ptxt">還沒開始</span>
+    <span class="track"><i id="pfill"></i></span>
+  </div>
+
+  <div class="cards" id="cards">
+    <a class="lcard" href="lesson1.html" data-l="1">
+      <span class="num">1</span>
+      <span class="body"><b>物價與時間</b><p>為什麼錢放著會變小，退休金要準備多少。</p><em class="tag"></em></span>
+      <span class="go">›</span>
+    </a>
+    <a class="lcard" href="lesson2.html" data-l="2">
+      <span class="num">2</span>
+      <span class="body"><b>錢可以放哪裡</b><p>定存、高股息、市值型的差別，還有歷史上的實際成績。</p><em class="tag"></em></span>
+      <span class="go">›</span>
+    </a>
+    <a class="lcard" href="lesson3.html" data-l="3">
+      <span class="num">3</span>
+      <span class="body"><b>三個桶子</b><p>急用錢、生活費、投資要各放多少，一年維護一次。</p><em class="tag"></em></span>
+      <span class="go">›</span>
+    </a>
+    <a class="lcard" href="lesson4.html" data-l="4">
+      <span class="num">4</span>
+      <span class="body"><b>實際開始，還有怎麼不被騙</b><p>怎麼開戶、怎麼確認股票在自己名下、遇到話術怎麼辦。</p><em class="tag"></em></span>
+      <span class="go">›</span>
+    </a>
+  </div>
+
+  <div class="sect">搭配工具</div>
+  <a class="lcard tool" href="jizhang.html">
+    <span class="num">📝</span>
+    <span class="body"><b>30 天記帳</b><p>記滿 30 天，就知道自己每個月真正花多少。第 3 課會用到這個數字。</p><em class="tag" id="jtag"></em></span>
+    <span class="go">›</span>
+  </a>
+
+  <div class="resetbar"><button type="button" id="reset">清除學習進度</button></div>
+
+  <p class="foot">
+    建議的順序是：先上第 1 課，接著開始記帳，等記帳的同時上第 2 課，滿 30 天後再上第 3、4 課。<br><br>
+    進度只存在這台裝置的瀏覽器裡，沒有傳到任何地方。<br>
+    本站只是幫忙理解數字，不是投資建議。做決定前請找有執照的理財規劃人員談過。
+  </p>
+</main>
+
+<script src="progress.js"></script>
+<script>
+(function(){
+  var done = (window.XT && window.XT.read()) || {};
+  var n = 0;
+  document.querySelectorAll('.lcard[data-l]').forEach(function(a){
+    if(done['l'+a.dataset.l]){
+      n++;
+      a.classList.add('done');
+      a.querySelector('.num').textContent='✓';
+      a.querySelector('.tag').textContent='已完成 · 可以再看一次';
+    }
+  });
+  var pct = n/4*100;
+  document.getElementById('ptxt').textContent = n===0 ? '還沒開始' : (n===4 ? '四課全部完成！' : '完成 '+n+' / 4 課');
+  setTimeout(function(){ document.getElementById('pfill').style.width = pct+'%'; }, 80);
+
+  // 記帳天數
+  try{
+    var raw=localStorage.getItem('jizhang.v1');
+    if(raw){
+      var e=JSON.parse(raw).entries||[], days={};
+      e.forEach(function(x){ days[x.d]=1; });
+      var d=Object.keys(days).length;
+      if(d>0) document.getElementById('jtag').textContent =
+        d>=30 ? '已記滿 30 天！' : ('已記 '+d+' 天 · 還差 '+(30-d)+' 天');
+    }
+  }catch(err){}
+
+  var armed=false, btn=document.getElementById('reset');
+  btn.addEventListener('click',function(){
+    if(!armed){
+      armed=true; btn.textContent='確定要清除嗎？再按一次';
+      btn.style.color='var(--warm)'; btn.style.borderColor='var(--warm)';
+      setTimeout(function(){ armed=false; btn.textContent='清除學習進度';
+        btn.style.color=''; btn.style.borderColor=''; },4000);
+      return;
+    }
+    try{ localStorage.removeItem('xuetang.v1'); }catch(e){}
+    location.reload();
+  });
+})();
+</script>
+</body>
+</html>

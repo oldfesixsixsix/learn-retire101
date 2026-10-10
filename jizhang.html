@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>30 天記帳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-lesson="t">
+
+<div style="max-width:560px;margin:0 auto;padding:calc(12px + env(safe-area-inset-top,0px)) 18px 0"><a class="home" href="./">← 回首頁</a></div>
+<div class="tabs" role="tablist">
+  <button id="tabA" role="tab" aria-selected="true">記一筆</button>
+  <button id="tabB" role="tab" aria-selected="false">我的進度</button>
+</div>
+
+<main>
+
+<!-- 記帳 -->
+<section class="page on" id="pageA">
+  <h2>花了多少錢？</h2>
+  <p class="sub" id="dateLabel">—</p>
+
+  <div class="daypick" role="group" aria-label="選擇日期">
+    <button type="button" id="dToday" aria-pressed="true">今天</button>
+    <button type="button" id="dYest" aria-pressed="false">昨天忘了記</button>
+  </div>
+
+  <div class="amount"><b id="amt" class="zero">0</b><span>元</span></div>
+
+  <div class="pad">
+    <button type="button" data-k="1">1</button>
+    <button type="button" data-k="2">2</button>
+    <button type="button" data-k="3">3</button>
+    <button type="button" data-k="4">4</button>
+    <button type="button" data-k="5">5</button>
+    <button type="button" data-k="6">6</button>
+    <button type="button" data-k="7">7</button>
+    <button type="button" data-k="8">8</button>
+    <button type="button" data-k="9">9</button>
+    <button type="button" class="sm" data-k="back">退一格</button>
+    <button type="button" data-k="0">0</button>
+    <button type="button" class="sm" data-k="clear">清除</button>
+  </div>
+
+  <h2 style="font-size:22px">買什麼？按一下就記好了</h2>
+  <div class="cats" id="cats">
+    <button type="button" data-c="吃飯"><span class="ic">🍚</span>吃飯</button>
+    <button type="button" data-c="買菜"><span class="ic">🥬</span>買菜</button>
+    <button type="button" data-c="交通"><span class="ic">🚌</span>交通</button>
+    <button type="button" data-c="看病吃藥"><span class="ic">💊</span>看病吃藥</button>
+    <button type="button" data-c="繳帳單"><span class="ic">🧾</span>繳帳單</button>
+    <button type="button" data-c="其他"><span class="ic">🛍️</span>其他</button>
+  </div>
+
+  <div class="today">
+    <h2 style="font-size:22px" id="listTitle">今天記了這些</h2>
+    <div id="list"></div>
+    <div class="sumrow"><span>今天總共</span><b id="daySum">0 元</b></div>
+  </div>
+</section>
+
+<!-- 進度 -->
+<section class="page" id="pageB">
+  <h2>已經記了 <span id="dayCount">0</span> 天</h2>
+  <p class="sub" id="progMsg">—</p>
+  <div class="stamps" id="stamps"></div>
+
+  <div class="big">
+    <div class="lab">平均每個月大概花</div>
+    <div class="num" id="avgMonth">—</div>
+    <div class="note" id="avgNote">—</div>
+  </div>
+
+  <h2 style="font-size:22px;margin-top:22px">錢都花到哪裡</h2>
+  <div class="breakdown" id="bd"></div>
+
+  <button class="danger" id="reset" type="button">全部清除，重新開始</button>
+  <p class="foot">資料只存在這支手機裡，沒有傳到任何地方。換手機或清除瀏覽器資料就會不見。<br><br>記滿 30 天後，把「平均每個月」的數字帶到退休金小學堂，就能算出比較準的結果。</p>
+</section>
+
+</main>
+
+<div class="toast" id="toast">已記好</div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var KEY='jizhang.v1';
+  var data={entries:[]};
+  var amt='', day='today';
+  var CATS=['吃飯','買菜','交通','看病吃藥','繳帳單','其他'];
+
+  function load(){
+    try{
+      var raw=localStorage.getItem(KEY);
+      if(raw){ var p=JSON.parse(raw); if(p&&Array.isArray(p.entries)) data=p; }
+    }catch(e){}
+  }
+  function save(){
+    try{ localStorage.setItem(KEY,JSON.stringify(data)); }catch(e){}
+  }
+  function iso(d){
+    return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  }
+  function targetDate(){
+    var d=new Date();
+    if(day==='yest') d.setDate(d.getDate()-1);
+    return iso(d);
+  }
+  function pretty(s){
+    var p=s.split('-');
+    return Number(p[1])+' 月 '+Number(p[2])+' 日';
+  }
+  function fmt(n){ return n.toLocaleString('en-US'); }
+
+  function toast(msg){
+    var t=$('toast'); t.textContent=msg; t.classList.add('show');
+    clearTimeout(t._h); t._h=setTimeout(function(){t.classList.remove('show')},1300);
+  }
+
+  // 金額
+  function paintAmt(){
+    var b=$('amt');
+    b.textContent = amt==='' ? '0' : fmt(parseInt(amt,10));
+    b.className = amt==='' ? 'zero' : '';
+    [].slice.call(document.querySelectorAll('#cats button')).forEach(function(x){ x.disabled = amt===''; });
+  }
+  document.querySelectorAll('[data-k]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.k;
+      if(k==='clear') amt='';
+      else if(k==='back') amt=amt.slice(0,-1);
+      else if(amt.length<7) amt=(amt==='' && k==='0') ? '' : amt+k;
+      paintAmt();
+    });
+  });
+
+  // 日期
+  function setDay(d){
+    day=d;
+    $('dToday').setAttribute('aria-pressed', d==='today');
+    $('dYest').setAttribute('aria-pressed', d==='yest');
+    $('dateLabel').textContent = pretty(targetDate()) + (d==='yest' ? '（補記昨天）' : '');
+    $('listTitle').textContent = d==='yest' ? '昨天記了這些' : '今天記了這些';
+    renderList();
+  }
+  $('dToday').addEventListener('click',function(){setDay('today')});
+  $('dYest').addEventListener('click',function(){setDay('yest')});
+
+  // 記一筆
+  document.querySelectorAll('#cats button').forEach(function(b){
+    b.addEventListener('click',function(){
+      if(amt==='') return;
+      data.entries.push({d:targetDate(), c:b.dataset.c, a:parseInt(amt,10), t:Date.now()});
+      save();
+      toast('記好了，'+fmt(parseInt(amt,10))+' 元');
+      amt=''; paintAmt(); renderList(); renderProgress();
+    });
+  });
+
+  function renderList(){
+    var d=targetDate();
+    var rows=data.entries.map(function(e,i){return {e:e,i:i}}).filter(function(x){return x.e.d===d});
+    var el=$('list');
+    if(!rows.length){ el.innerHTML='<div class="empty">還沒有紀錄。花了錢就按上面記一下。</div>'; }
+    else{
+      el.innerHTML=rows.map(function(x){
+        return '<div class="row"><span class="c">'+x.e.c+'</span><span class="a">'+fmt(x.e.a)+' 元</span>'+
+               '<button class="x" data-del="'+x.i+'" aria-label="刪除這筆">✕</button></div>';
+      }).join('');
+      el.querySelectorAll('[data-del]').forEach(function(b){
+        b.addEventListener('click',function(){
+          data.entries.splice(parseInt(b.dataset.del,10),1);
+          save(); renderList(); renderProgress(); toast('刪掉了');
+        });
+      });
+    }
+    var sum=rows.reduce(function(a,x){return a+x.e.a},0);
+    $('daySum').textContent=fmt(sum)+' 元';
+  }
+
+  function renderProgress(){
+    var days={}, total=0, byCat={};
+    data.entries.forEach(function(e){
+      days[e.d]=(days[e.d]||0)+e.a; total+=e.a;
+      byCat[e.c]=(byCat[e.c]||0)+e.a;
+    });
+    var keys=Object.keys(days).sort();
+    var n=keys.length;
+    $('dayCount').textContent=n;
+
+    // 蓋章
+    var today=iso(new Date());
+    var s='';
+    for(var i=0;i<30;i++){
+      var done = i<n;
+      s+='<div class="stamp'+(done?' done':'')+'">'+(done?'✓':(i+1))+'</div>';
+    }
+    $('stamps').innerHTML=s;
+
+    if(n===0){ $('progMsg').textContent='記滿 30 天，就知道自己真正花多少。'; }
+    else if(n<30){ $('progMsg').textContent='還差 '+(30-n)+' 天。每天記一下就好，不用很精準。'; }
+    else{ $('progMsg').textContent='記滿了！這個數字比用猜的準得多。'; }
+
+    // 平均
+    var avg = n>0 ? total/n*30 : 0;
+    if(n===0){
+      $('avgMonth').textContent='—'; $('avgMonth').className='num';
+      $('avgNote').textContent='開始記帳後就會出現。';
+    }else if(n<7){
+      $('avgMonth').textContent=fmt(Math.round(avg))+' 元';
+      $('avgMonth').className='num';
+      $('avgNote').textContent='只記了 '+n+' 天，這個數字還不準，先參考就好。';
+    }else{
+      $('avgMonth').textContent=fmt(Math.round(avg))+' 元';
+      $('avgMonth').className='num'+(n>=30?' grow':'');
+      $('avgNote').textContent = n>=30
+        ? '這個數字可以帶到退休金小學堂用了。'
+        : '記了 '+n+' 天，已經有參考價值。滿 30 天會更準。';
+    }
+
+    // 分類
+    var arr=CATS.map(function(c){return {c:c,v:byCat[c]||0}}).filter(function(x){return x.v>0})
+             .sort(function(a,b){return b.v-a.v});
+    var max=arr.length?arr[0].v:1;
+    $('bd').innerHTML = arr.length
+      ? arr.map(function(x){
+          return '<div class="bd"><div class="t"><span>'+x.c+'</span><b>'+fmt(x.v)+' 元</b></div>'+
+                 '<div class="m"><i data-w="'+(x.v/max*100)+'"></i></div></div>';
+        }).join('')
+      : '<div class="empty">還沒有資料。</div>';
+    setTimeout(function(){
+      document.querySelectorAll('#bd .m i').forEach(function(el,k){
+        setTimeout(function(){ el.style.width=el.dataset.w+'%'; }, k*90);
+      });
+    },40);
+  }
+
+  // 分頁
+  function tab(which){
+    $('tabA').setAttribute('aria-selected', which==='A');
+    $('tabB').setAttribute('aria-selected', which==='B');
+    $('pageA').classList.toggle('on', which==='A');
+    $('pageB').classList.toggle('on', which==='B');
+    if(which==='B') renderProgress();
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  $('tabA').addEventListener('click',function(){tab('A')});
+  $('tabB').addEventListener('click',function(){tab('B')});
+
+  // 清除
+  var armed=false;
+  $('reset').addEventListener('click',function(){
+    if(!armed){ armed=true; this.textContent='確定要全部刪掉嗎？再按一次'; this.style.color='var(--warm)'; this.style.borderColor='var(--warm)';
+      var self=this; setTimeout(function(){ armed=false; self.textContent='全部清除，重新開始'; self.style.color=''; self.style.borderColor=''; },4000);
+      return; }
+    data={entries:[]}; save(); armed=false;
+    this.textContent='全部清除，重新開始'; this.style.color=''; this.style.borderColor='';
+    renderList(); renderProgress(); toast('已清除');
+  });
+
+  load(); setDay('today'); paintAmt(); renderProgress();
+})();
+</script>
+<script src="progress.js"></script>
+</body>
+</html>

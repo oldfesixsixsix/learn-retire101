@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>退休金小學堂 第2課：錢可以放哪裡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-lesson="2">
+
+<div class="bar">
+  <div class="bar-top"><a class="home" href="./">← 回首頁</a><span id="stepName" hidden></span><span id="stepCount"></span></div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<main>
+
+<!-- 1 -->
+<section class="step on" data-name="開始">
+  <div class="lesson">第 2 課</div>
+  <h1>錢可以放哪裡？</h1>
+  <p class="sub">上一課我們知道了：錢放著不動會變小。<br>這一課來看看，可以放到哪裡去。</p>
+  <div class="art">
+    <svg viewBox="0 0 320 160" role="img" aria-label="三個去處">
+      <g font-size="15" fill="var(--soft)" text-anchor="middle">
+        <rect x="18" y="52" width="80" height="72" rx="12" fill="var(--flat)" opacity=".85"/>
+        <text x="58" y="142">定存</text>
+        <rect x="120" y="42" width="80" height="82" rx="12" fill="var(--gold)" opacity=".85"/>
+        <text x="160" y="142">高股息</text>
+        <rect x="222" y="26" width="80" height="98" rx="12" fill="var(--grow)" opacity=".9"/>
+        <text x="262" y="142">市值型</text>
+      </g>
+      <text x="160" y="20" font-size="15" fill="var(--soft)" text-anchor="middle">只有三種，不難記</text>
+    </svg>
+  </div>
+  <p class="tip">只要認識這三個，就夠用了。其他的都可以先不管。</p>
+</section>
+
+<!-- 2 定存 -->
+<section class="step" data-name="定存">
+  <h2>第一個：定存</h2>
+  <p class="sub">放銀行，一年大約給你 1.5%。<br>數字永遠不會變少，看了很安心。</p>
+  <div class="art">
+    <svg viewBox="0 0 320 170" role="img" aria-label="定存與物價賽跑">
+      <text x="14" y="22" font-size="15" fill="var(--soft)">20 年後，誰跑得比較快</text>
+      <g>
+        <text x="14" y="62" font-size="17" fill="var(--ink)">物價</text>
+        <rect x="74" y="46" width="200" height="22" rx="11" fill="var(--warm)" opacity=".9"/>
+        <text x="282" y="63" font-size="15" fill="var(--soft)" text-anchor="end"> </text>
+        <text x="80" y="63" font-size="15" fill="#fff">每年漲 2%</text>
+      </g>
+      <g>
+        <text x="14" y="112" font-size="17" fill="var(--ink)">定存</text>
+        <rect x="74" y="96" width="150" height="22" rx="11" fill="var(--flat)"/>
+        <text x="80" y="113" font-size="15" fill="#fff">每年 1.5%</text>
+      </g>
+      <path d="M224 107 L270 107" stroke="var(--warm)" stroke-width="3" stroke-dasharray="6 5"/>
+      <text x="160" y="152" font-size="16" fill="var(--warm)" text-anchor="middle" font-weight="700">每年輸一點點，二十年輸一截</text>
+    </svg>
+  </div>
+  <p class="punch">定存不會跌，<br>但它追不上物價。</p>
+  <p class="tip">所以定存不是拿來賺錢的，是拿來<b>放短期內要用的錢</b>。這個第 4 課會講。</p>
+</section>
+
+<!-- 3 高股息 -->
+<section class="step" data-name="高股息">
+  <h2>第二個：高股息</h2>
+  <p class="sub">每季會發現金給你，看到帳戶有錢進來，很踏實。<br>很多人因為這樣選它。</p>
+  <div class="art">
+    <svg viewBox="0 0 320 150" role="img" aria-label="配息入帳">
+      <rect x="30" y="30" width="110" height="80" rx="10" fill="var(--gold)" opacity=".85"/>
+      <text x="85" y="66" font-size="16" fill="#fff" text-anchor="middle">你的股票</text>
+      <text x="85" y="90" font-size="24" font-weight="900" fill="#fff" text-anchor="middle">100 元</text>
+      <path d="M152 70 L186 70" stroke="var(--soft)" stroke-width="3"/>
+      <path d="M180 64 L188 70 L180 76" fill="none" stroke="var(--soft)" stroke-width="3"/>
+      <rect x="198" y="46" width="94" height="48" rx="10" fill="var(--card)" stroke="var(--rule)" stroke-width="2"/>
+      <text x="245" y="66" font-size="14" fill="var(--soft)" text-anchor="middle">配息入帳</text>
+      <text x="245" y="86" font-size="20" font-weight="900" fill="var(--grow)" text-anchor="middle">+5 元</text>
+      <text x="160" y="134" font-size="15" fill="var(--soft)" text-anchor="middle">看起來多了 5 元，對嗎？</text>
+    </svg>
+  </div>
+  <button class="act" id="exBtn" type="button">按這裡，看配息那天發生什麼事</button>
+  <p class="punch" id="exMsg" style="display:none"></p>
+</section>
+
+<!-- 4 除息真相 -->
+<section class="step" data-name="配息的真相">
+  <h2>配息，不是多給你的錢</h2>
+  <p class="sub">配息那天，股價會扣掉同樣的金額。<br>這叫「除息」。</p>
+  <div class="art">
+    <svg viewBox="0 0 320 180" role="img" aria-label="除息前後比較">
+      <text x="80" y="20" font-size="15" fill="var(--soft)" text-anchor="middle">配息前</text>
+      <text x="240" y="20" font-size="15" fill="var(--soft)" text-anchor="middle">配息後</text>
+      <rect x="38" y="32" width="84" height="110" rx="10" fill="var(--gold)" opacity=".85"/>
+      <text x="80" y="94" font-size="19" font-weight="900" fill="#fff" text-anchor="middle">100</text>
+      <rect x="198" y="48" width="84" height="94" rx="10" fill="var(--gold)" opacity=".85"/>
+      <text x="240" y="102" font-size="19" font-weight="900" fill="#fff" text-anchor="middle">95</text>
+      <rect x="198" y="26" width="84" height="16" rx="8" fill="var(--grow)"/>
+      <text x="240" y="39" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">現金 5</text>
+      <line x1="30" y1="158" x2="290" y2="158" stroke="var(--rule)" stroke-width="2"/>
+      <text x="80" y="176" font-size="16" font-weight="700" fill="var(--ink)" text-anchor="middle">總共 100</text>
+      <text x="240" y="176" font-size="16" font-weight="700" fill="var(--ink)" text-anchor="middle">總共 100</text>
+    </svg>
+  </div>
+  <p class="punch">錢沒有變多。<br>只是從左口袋換到右口袋。</p>
+  <p class="tip">這不代表高股息不好，它確實讓現金流變簡單。只是要知道——<b>配息不等於賺錢</b>，所以不能只看殖利率高就買。</p>
+</section>
+
+<!-- 5 市值型 -->
+<section class="step" data-name="市值型">
+  <h2>第三個：市值型</h2>
+  <p class="sub">一次買進台灣最大的 50 家公司，或美國最大的 500 家。<br>不挑股票，就是跟著整個市場走。</p>
+  <div class="art">
+    <svg viewBox="0 0 320 160" role="img" aria-label="市值型的提款方式">
+      <circle cx="90" cy="80" r="56" fill="var(--grow)" opacity=".9"/>
+      <text x="90" y="74" font-size="16" fill="#fff" text-anchor="middle">你的部位</text>
+      <text x="90" y="98" font-size="20" font-weight="900" fill="#fff" text-anchor="middle">600 萬</text>
+      <path d="M160 80 L196 80" stroke="var(--soft)" stroke-width="3"/>
+      <path d="M190 74 L198 80 L190 86" fill="none" stroke="var(--soft)" stroke-width="3"/>
+      <rect x="208" y="54" width="92" height="52" rx="10" fill="var(--card)" stroke="var(--rule)" stroke-width="2"/>
+      <text x="254" y="76" font-size="14" fill="var(--soft)" text-anchor="middle">每年賣一點</text>
+      <text x="254" y="96" font-size="18" font-weight="900" fill="var(--ink)" text-anchor="middle">24 萬</text>
+      <text x="160" y="146" font-size="15" fill="var(--soft)" text-anchor="middle">不配息，要用錢時自己賣</text>
+    </svg>
+  </div>
+  <p class="punch good">長期下來，<br>它通常是三個裡面最多的。</p>
+  <p class="tip">代價是：它跌起來也最兇，而且要自己動手賣。下一關就看實際跌過多少。</p>
+</section>
+
+<!-- 6 歷史:長期 -->
+<section class="step" data-name="長期誰贏">
+  <h2>100 萬放 20 年，會變多少？</h2>
+  <p class="sub">用歷史上真實的報酬率算出來的。</p>
+  <div class="art">
+    <svg viewBox="0 0 320 212" role="img" aria-label="一百萬放二十年的結果比較">
+      <!-- 物價線 -->
+      <line x1="117" y1="30" x2="117" y2="178" stroke="var(--warm)" stroke-width="3" stroke-dasharray="6 5"/>
+      <text x="121" y="24" font-size="14" font-weight="700" fill="var(--warm)">物價漲到這裡</text>
+      <text x="121" y="42" font-size="13" fill="var(--warm)">149 萬</text>
+
+      <g font-size="16" fill="var(--ink)">
+        <text x="4" y="72">定存</text>
+        <rect id="g0" x="66" y="56" width="0" height="24" rx="6" fill="var(--flat)"/>
+        <text id="t0" x="0" y="74" font-size="16" font-weight="900" fill="var(--ink)" opacity="0">135 萬</text>
+
+        <text x="4" y="122">台股</text>
+        <rect id="g1" x="66" y="106" width="0" height="24" rx="6" fill="var(--grow)" opacity=".92"/>
+        <text id="t1" x="0" y="124" font-size="16" font-weight="900" fill="#fff" opacity="0">650 萬</text>
+
+        <text x="4" y="172">美股</text>
+        <rect id="g2" x="66" y="156" width="0" height="24" rx="6" fill="var(--grow)" opacity=".92"/>
+        <text id="t2" x="0" y="174" font-size="16" font-weight="900" fill="#fff" opacity="0">725 萬</text>
+      </g>
+      <text x="66" y="202" font-size="13" fill="var(--soft)">定存 1.5%／台股 9.8%／美股 10.4%</text>
+    </svg>
+  </div>
+  <p class="punch">定存的 135 萬，<br><b>連物價都沒追上</b>。</p>
+  <p class="tip">紅色虛線是：今天 100 萬買得到的東西，20 年後要花 149 萬才買得到。<b>沒有過這條線，就等於虧了。</b><br><br>至於高股息，回測顯示它長期落後台股大盤——不論是每月定期買、一次買進，還是退休後每年提領，0050 的結果都比 0056 好。</p>
+</section>
+
+<!-- 7 歷史:跌幅 -->
+<section class="step" data-name="會跌多少">
+  <h2>但是，它也會跌</h2>
+  <p class="sub">按按看，這幾年實際跌了多少。</p>
+  <div class="picks" role="group" aria-label="選擇年份">
+    <button type="button" data-crash="0" aria-pressed="true">2015 年</button>
+    <button type="button" data-crash="1">2020 年</button>
+    <button type="button" data-crash="2">2022 年</button>
+  </div>
+  <div style="margin-top:20px">
+    <div class="rowcard">
+      <div class="top"><b>市值型 0050</b><i id="c0">—</i></div>
+      <div class="meter"><i id="d0" style="background:var(--warm)"></i></div>
+    </div>
+    <div class="rowcard">
+      <div class="top"><b>高股息 0056</b><i id="c1">—</i></div>
+      <div class="meter"><i id="d1" style="background:var(--gold)"></i></div>
+    </div>
+  </div>
+  <p class="punch" id="crashMsg">—</p>
+</section>
+
+<!-- 8 失落的十年 -->
+<section class="step" data-name="最壞的情況">
+  <h2>最壞的情況長這樣</h2>
+  <p class="sub">2000 年到 2009 年，這十年——</p>
+  <div class="art">
+    <svg viewBox="0 0 320 170" role="img" aria-label="失落的十年">
+      <line x1="30" y1="60" x2="300" y2="60" stroke="var(--rule)" stroke-width="2" stroke-dasharray="5 5"/>
+      <text x="30" y="50" font-size="14" fill="var(--soft)">起點</text>
+      <path d="M30 60 L62 92 L94 72 L126 118 L158 96 L190 66 L222 134 L254 108 L286 76"
+            fill="none" stroke="var(--warm)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="286" cy="76" r="7" fill="var(--warm)"/>
+      <text x="30" y="156" font-size="15" fill="var(--soft)">2000 年</text>
+      <text x="300" y="156" font-size="15" fill="var(--soft)" text-anchor="end">2009 年</text>
+    </svg>
+  </div>
+  <div class="rowcard">
+    <div class="top"><b>台股這十年</b><i style="color:var(--warm)">總共 −18%</i></div>
+  </div>
+  <div class="rowcard">
+    <div class="top"><b>美股這十年</b><i style="color:var(--warm)">一年 −0.95%</i></div>
+  </div>
+  <p class="punch">整整十年，是虧的。<br>這就是為什麼要留現金。</p>
+  <p class="tip">如果剛好在那十年退休，又沒有現金可以撐，就會被迫在最低點賣股票。<b>第 4 課會教怎麼避開這件事。</b></p>
+</section>
+
+<!-- 9 怎麼選 -->
+<section class="step" data-name="怎麼選">
+  <h2>那到底要選哪個？</h2>
+  <p class="sub">答案是：<b>不用選，三個都要。</b></p>
+  <div class="rowcard" style="border-left:7px solid var(--flat)">
+    <div class="top"><b>定存</b><i>放三年內要花的</i></div>
+    <p style="margin:0;font-size:19px;color:var(--soft);line-height:1.6">生活費從這裡拿。市場再怎麼跌都不用管。</p>
+  </div>
+  <div class="rowcard" style="border-left:7px solid var(--gold)">
+    <div class="top"><b>高股息</b><i>想要固定入帳</i></div>
+    <p style="margin:0;font-size:19px;color:var(--soft);line-height:1.6">自己不方便賣股票的話，讓它自動配給你。</p>
+  </div>
+  <div class="rowcard" style="border-left:7px solid var(--grow)">
+    <div class="top"><b>市值型</b><i>放十年以上不動的</i></div>
+    <p style="margin:0;font-size:19px;color:var(--soft);line-height:1.6">負責跟上物價、把錢養大。</p>
+  </div>
+  <p class="punch good">重點不是哪個好，<br>是<b>哪筆錢什麼時候要用</b>。</p>
+</section>
+
+<!-- 10 完成 -->
+<section class="step" data-name="完成">
+  <div class="done-art">
+    <svg class="check" viewBox="0 0 110 110" role="img" aria-label="完成">
+      <circle cx="55" cy="55" r="50"/>
+      <path d="M33 57 L48 72 L78 40"/>
+    </svg>
+  </div>
+  <h2 style="text-align:center">第 2 課完成！</h2>
+  <p class="sub" style="text-align:center">記住這三句就好。</p>
+  <div class="takeaway"><div class="n">1</div><p><b>配息不是多賺的錢。</b>配息那天股價會扣掉，總數沒變。</p></div>
+  <div class="takeaway"><div class="n">2</div><p><b>市值型長期最多，但跌起來最兇。</b>台股有過整整十年是虧的。</p></div>
+  <div class="takeaway"><div class="n">3</div><p><b>不用二選一。</b>看這筆錢什麼時候要用，就知道放哪裡。</p></div>
+  <p class="foot">下一課：用您記帳 30 天的真實數字，算出實際的每月開銷。記得繼續記帳。<br><br>數字整理自元大投信、台灣證券交易所與公開財經資料。過去的成績不保證未來。這個小學堂不是投資建議。</p>
+</section>
+
+</main>
+
+<div class="nav">
+  <button class="btn ghost" id="prev" type="button">上一步</button>
+  <button class="btn" id="next" type="button">開始</button>
+</div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var cur=0, TOTAL=steps.length;
+
+  var dots=$('dots');
+  steps.forEach(function(){var d=document.createElement('div');d.className='dot';dots.appendChild(d)});
+  var dotEls=[].slice.call(dots.children);
+
+  function show(i){
+    cur=Math.max(0,Math.min(TOTAL-1,i));
+    steps.forEach(function(s,k){s.classList.toggle('on',k===cur)});
+    dotEls.forEach(function(d,k){d.className='dot'+(k<cur?' done':(k===cur?' now':''))});
+    $('stepName').textContent=steps[cur].dataset.name;
+    $('stepCount').textContent='第 '+(cur+1)+' 關 / 共 '+TOTAL+' 關';
+    $('prev').style.visibility=cur===0?'hidden':'visible';
+    $('next').textContent=cur===0?'開始':(cur===TOTAL-1?'再看一次':'下一步');
+    if(cur===5) histBars();
+    if(cur===6) crash(curCrash);
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  $('next').addEventListener('click',function(){cur===TOTAL-1?show(0):show(cur+1)});
+  $('prev').addEventListener('click',function(){show(cur-1)});
+
+  // 除息互動
+  var exOn=false;
+  $('exBtn').addEventListener('click',function(){
+    if(exOn) return; exOn=true;
+    this.textContent='股價從 100 元，變成 95 元';
+    this.style.borderStyle='solid';
+    this.style.color='var(--warm)';
+    var m=$('exMsg');
+    m.style.display='block';
+    m.innerHTML='您的股票少了 5 元，<br>口袋多了 5 元現金。<br>加起來，還是 100 元。';
+  });
+
+  // 長期長條：寬度依金額等比，最長 725 萬 = 246px
+  function histBars(){
+    var MAXV=725, MAXW=246, X0=66;
+    var rows=[[135,'g0','t0'],[650,'g1','t1'],[725,'g2','t2']];
+    rows.forEach(function(r,i){
+      var w=r[0]/MAXV*MAXW;
+      var bar=$(r[1]), lab=$(r[2]);
+      bar.setAttribute('width',0); lab.setAttribute('opacity',0);
+      setTimeout(function(){
+        bar.setAttribute('width',w.toFixed(1));
+        // 數字放在條內右側；條太短就放外面
+        if(w>62){ lab.setAttribute('x',(X0+w-8).toFixed(1)); lab.setAttribute('text-anchor','end'); lab.setAttribute('fill','#fff'); }
+        else    { lab.setAttribute('x',(X0+w+8).toFixed(1)); lab.setAttribute('text-anchor','start'); lab.setAttribute('fill','var(--ink)'); }
+        lab.setAttribute('opacity',1);
+      }, 120+i*300);
+    });
+  }
+
+  // 股災
+  var CRASH=[
+    {y:'2015 年中國股災', a:20.96, b:21.15, msg:'這一次，高股息<b>跌得還比較多</b>。'},
+    {y:'2020 年新冠', a:28.22, b:25.15, msg:'差了 3 個百分點。<br>沒有想像中抗跌。'},
+    {y:'2022 年升息', a:33.83, b:25.57, msg:'這次高股息確實少跌一些。<br>代價是長期賺得比較少。'}
+  ];
+  var curCrash=0;
+  function crash(i){
+    curCrash=i;
+    var c=CRASH[i];
+    $('c0').textContent='−'+c.a.toFixed(2)+'%';
+    $('c1').textContent='−'+c.b.toFixed(2)+'%';
+    [['d0',c.a],['d1',c.b]].forEach(function(p,k){
+      var el=$(p[0]); el.style.width='0';
+      setTimeout(function(){el.style.width=(p[1]/35*100)+'%'},80+k*160);
+    });
+    $('crashMsg').innerHTML=c.msg;
+  }
+  document.querySelectorAll('[data-crash]').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-crash]').forEach(function(x){x.setAttribute('aria-pressed','false')});
+      b.setAttribute('aria-pressed','true');
+      crash(parseInt(b.dataset.crash,10));
+    });
+  });
+
+  show(0);
+})();
+</script>
+<script src="progress.js"></script>
+</body>
+</html>

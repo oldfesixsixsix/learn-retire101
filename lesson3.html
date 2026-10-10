@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>退休金小學堂 第3課：三個桶子</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-lesson="3">
+
+<div class="bar">
+  <div class="bar-top"><a class="home" href="./">← 回首頁</a><span id="stepName" hidden></span><span id="stepCount"></span></div>
+  <div class="dots" id="dots"></div>
+</div>
+
+<main>
+
+<!-- 1 -->
+<section class="step on" data-name="開始">
+  <div class="lesson">第 3 課</div>
+  <h1>把錢分成三個桶子</h1>
+  <p class="sub">您已經記了 30 天的帳，知道自己真正花多少。<br>這一課，我們把錢好好分配。</p>
+  <div class="art">
+    <svg viewBox="0 0 320 150" role="img" aria-label="三個桶子">
+      <g>
+        <path d="M22 54 L96 54 L88 124 L30 124 Z" fill="var(--warm)" opacity=".88"/>
+        <text x="59" y="144" font-size="14" fill="var(--soft)" text-anchor="middle">急用</text>
+        <path d="M124 54 L198 54 L190 124 L132 124 Z" fill="var(--flat)"/>
+        <text x="161" y="144" font-size="14" fill="var(--soft)" text-anchor="middle">生活</text>
+        <path d="M226 54 L300 54 L292 124 L234 124 Z" fill="var(--grow)" opacity=".92"/>
+        <text x="263" y="144" font-size="14" fill="var(--soft)" text-anchor="middle">長大</text>
+      </g>
+      <text x="160" y="28" font-size="15" fill="var(--soft)" text-anchor="middle">每個桶子，有自己的工作</text>
+    </svg>
+  </div>
+  <p class="tip">分好之後，市場再怎麼跌，您都不用慌。</p>
+</section>
+
+<!-- 2 為什麼 -->
+<section class="step" data-name="為什麼要分">
+  <h2>兩個人，一樣有 600 萬</h2>
+  <p class="sub">都在市場大跌那一年退休。</p>
+  <div class="art">
+    <svg viewBox="0 0 320 200" role="img" aria-label="兩種結果比較">
+      <text x="14" y="20" font-size="16" font-weight="700" fill="var(--warm)">沒留現金的人</text>
+      <path d="M20 58 L70 86 L120 74 L170 96 L220 88 L270 104 L300 100"
+            fill="none" stroke="var(--warm)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="70" cy="86" r="6" fill="var(--warm)"/>
+      <text x="78" y="52" font-size="13" fill="var(--warm)">在這裡被迫賣股</text>
+      <text x="14" y="134" font-size="16" font-weight="700" fill="var(--grow)">有留現金的人</text>
+      <path d="M20 170 L70 184 L120 168 L170 160 L220 144 L270 130 L300 122"
+            fill="none" stroke="var(--grow)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="70" cy="184" r="6" fill="var(--grow)"/>
+      <text x="78" y="196" font-size="13" fill="var(--grow)">撐著不賣，等它回來</text>
+    </svg>
+  </div>
+  <p class="punch">差別不在買了什麼，<br>在<b>跌的時候有沒有被迫賣掉</b>。</p>
+  <p class="tip">股票跌三成，不賣就只是帳面難看。一賣，就真的變成虧損了。</p>
+</section>
+
+<!-- 3 月支出 -->
+<section class="step" data-name="您的開銷">
+  <h2>您每個月花多少？</h2>
+  <p class="sub">打開記帳工具，看「平均每個月大概花」那個數字，填進來。</p>
+  <div class="stepper">
+    <button type="button" data-step="expense:-1000" aria-label="減一千">−</button>
+    <div class="val"><b id="vExpense">25,000</b><span>元</span></div>
+    <button type="button" data-step="expense:1000" aria-label="加一千">＋</button>
+  </div>
+  <p class="tip">如果有勞保年金或其他收入，先扣掉再填。這裡要填的是<b>要靠存款補的部分</b>。</p>
+</section>
+
+<!-- 4 資產 -->
+<section class="step" data-name="您的存款">
+  <h2>總共有多少錢？</h2>
+  <p class="sub">定存、股票、保單都算。自住的房子不算。</p>
+  <div class="stepper">
+    <button type="button" data-step="assets:-50" aria-label="減 50 萬">−</button>
+    <div class="val"><b id="vAssets">600</b><span>萬</span></div>
+    <button type="button" data-step="assets:50" aria-label="加 50 萬">＋</button>
+  </div>
+  <p class="tip">大概就好。</p>
+</section>
+
+<!-- 5 桶1 -->
+<section class="step" data-name="第一個桶">
+  <h2>第一個桶：急用錢</h2>
+  <p class="sub">住院、牙齒、家電壞掉、屋頂漏水。<br>這些不會先通知你。</p>
+  <div class="bucket b1">
+    <div class="top"><b>半年的生活費</b><i id="b1v">—</i></div>
+    <p>放活存或定存，隨時領得出來。不要拿去投資。</p>
+  </div>
+  <p class="punch">這桶<b>不是用來賺錢的</b>，<br>是用來讓您晚上睡得著的。</p>
+  <p class="tip">有些人覺得放著不動很可惜，但它的工作就是「隨時都在」。這筆錢去投資，就失去意義了。</p>
+</section>
+
+<!-- 6 桶2 -->
+<section class="step" data-name="第二個桶">
+  <h2>第二個桶：三年生活費</h2>
+  <p class="sub">每個月的生活費，從這個桶子拿。</p>
+  <div class="bucket b2">
+    <div class="top"><b>三年的生活費</b><i id="b2v">—</i></div>
+    <p>放定存。每個月從這裡領錢花，不去碰股票。</p>
+  </div>
+  <p class="punch">為什麼是三年？<br>因為大跌之後，<b>通常兩三年會回來</b>。</p>
+  <p class="tip">有這三年，您就有本錢等。不用在最低點賣掉股票換飯吃——這正是上一關那個人犯的錯。</p>
+</section>
+
+<!-- 7 桶3 -->
+<section class="step" data-name="第三個桶">
+  <h2>第三個桶：讓錢長大</h2>
+  <p class="sub">剩下的錢，放市值型 ETF。</p>
+  <div class="bucket b3">
+    <div class="top"><b>剩下的全部</b><i id="b3v">—</i></div>
+    <p>十年以上不會動到的錢，負責跟上物價、把錢養大。</p>
+  </div>
+  <p class="punch good">這桶會上上下下，<br>但您<b>三年內都不需要碰它</b>。</p>
+  <p class="tip">因為前面兩個桶擋著，這桶跌的時候您可以不理它。這就是分桶的全部意義。</p>
+</section>
+
+<!-- 8 結果 -->
+<section class="step" data-name="您的分配">
+  <h2>您的三個桶子</h2>
+  <p class="sub" id="resSub">—</p>
+  <div class="stack">
+    <i id="s1" style="background:var(--warm)"></i>
+    <i id="s2" style="background:var(--flat)"></i>
+    <i id="s3" style="background:var(--grow)"></i>
+  </div>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--warm)"></i>急用</span>
+    <span><i class="sw" style="background:var(--flat)"></i>生活</span>
+    <span><i class="sw" style="background:var(--grow)"></i>長大</span>
+  </div>
+  <div class="bucket b1"><div class="top"><b>急用錢（半年）</b><i id="r1">—</i></div></div>
+  <div class="bucket b2"><div class="top"><b>生活費（三年）</b><i id="r2">—</i></div></div>
+  <div class="bucket b3"><div class="top"><b>投資（市值型）</b><i id="r3">—</i></div></div>
+
+  <h2 style="font-size:22px;margin-top:26px">算給您看</h2>
+  <div class="calc" id="calc"></div>
+
+  <p class="punch" id="resMsg">—</p>
+  <p class="tip">上面的年數是<b>保守算的</b>——當作投資桶完全沒有長大。實際上它會慢慢增加，所以真正能撐的時間會比這個數字長一些。但物價也會漲，兩邊抵銷掉一部分，所以就用這個數字來判斷就好。</p>
+</section>
+
+<!-- 9 一年做一次 -->
+<section class="step" data-name="一年一次">
+  <h2>一年只要做一次</h2>
+  <p class="sub">固定挑一個月，例如每年一月。<br>看看生活桶剩多少，然後——</p>
+  <div class="picks" role="group" aria-label="情境">
+    <button type="button" data-year="0" aria-pressed="true">去年市場好</button>
+    <button type="button" data-year="1">去年大跌</button>
+  </div>
+  <div class="art" style="margin-top:20px">
+    <svg viewBox="0 0 320 130" role="img" aria-label="補水位示意">
+      <path d="M200 42 L280 42 L273 110 L207 110 Z" fill="var(--grow)" opacity=".9"/>
+      <text x="240" y="126" font-size="13" fill="var(--soft)" text-anchor="middle">投資桶</text>
+      <path d="M40 42 L120 42 L113 110 L47 110 Z" fill="var(--flat)"/>
+      <rect id="lvl" x="47" y="78" width="66" height="32" fill="var(--ink)" opacity=".25"/>
+      <text x="80" y="126" font-size="13" fill="var(--soft)" text-anchor="middle">生活桶</text>
+      <path id="arrow" d="M196 70 L130 70" stroke="var(--grow)" stroke-width="4" stroke-linecap="round"/>
+      <path id="arrowh" d="M138 63 L128 70 L138 77" fill="none" stroke="var(--grow)" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <p class="punch" id="yearMsg">—</p>
+</section>
+
+<!-- 10 完成 -->
+<section class="step" data-name="完成">
+  <div class="done-art">
+    <svg class="check" viewBox="0 0 110 110" role="img" aria-label="完成">
+      <circle cx="55" cy="55" r="50"/>
+      <path d="M33 57 L48 72 L78 40"/>
+    </svg>
+  </div>
+  <h2 style="text-align:center">第 3 課完成！</h2>
+  <p class="sub" style="text-align:center">記住這三句就好。</p>
+  <div class="takeaway"><div class="n">1</div><p><b>急用錢半年、生活費三年</b>，放定存。剩下的才拿去投資。</p></div>
+  <div class="takeaway"><div class="n">2</div><p><b>生活費只從定存桶拿。</b>市場跌的時候不要去動股票。</p></div>
+  <div class="takeaway"><div class="n">3</div><p><b>一年只要看一次。</b>市場好就補生活桶，市場差就放著不動。</p></div>
+  <p class="foot">下一課：怎麼實際去買、怎麼確認股票在自己名下、遇到「保證賺」的人怎麼辦。<br><br>這個小學堂只是幫忙理解數字，不是投資建議。真的要做決定前，請找有執照的理財規劃人員談過。</p>
+</section>
+
+</main>
+
+<div class="nav">
+  <button class="btn ghost" id="prev" type="button">上一步</button>
+  <button class="btn" id="next" type="button">開始</button>
+</div>
+
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var cur=0, TOTAL=steps.length;
+  var state={expense:25000, assets:600};
+
+  var dots=$('dots');
+  steps.forEach(function(){var d=document.createElement('div');d.className='dot';dots.appendChild(d)});
+  var dotEls=[].slice.call(dots.children);
+
+  function fmt(n){ return n.toLocaleString('en-US'); }
+  function wan(n){ return fmt(Math.round(n))+' 萬'; }
+
+  // 三個桶（萬元）
+  function buckets(){
+    var m=state.expense/10000;          // 月支出（萬）
+    var b1=m*6, b2=m*36, total=state.assets;
+    var r1=Math.min(b1,total);
+    var r2=Math.min(b2, Math.max(0,total-r1));
+    var r3=Math.max(0, total-r1-r2);
+    return {b1:b1,b2:b2,r1:r1,r2:r2,r3:r3,total:total,m:m,
+            enough:(total>=b1+b2), invest:r3};
+  }
+
+  function show(i){
+    cur=Math.max(0,Math.min(TOTAL-1,i));
+    steps.forEach(function(s,k){s.classList.toggle('on',k===cur)});
+    dotEls.forEach(function(d,k){d.className='dot'+(k<cur?' done':(k===cur?' now':''))});
+    $('stepName').textContent=steps[cur].dataset.name;
+    $('stepCount').textContent='第 '+(cur+1)+' 關 / 共 '+TOTAL+' 關';
+    $('prev').style.visibility=cur===0?'hidden':'visible';
+    $('next').textContent=cur===0?'開始':(cur===TOTAL-1?'再看一次':'下一步');
+    if(cur===4||cur===5||cur===6) paintBuckets();
+    if(cur===7) renderResult();
+    if(cur===8) yearCase(curYear);
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  $('next').addEventListener('click',function(){cur===TOTAL-1?show(0):show(cur+1)});
+  $('prev').addEventListener('click',function(){show(cur-1)});
+
+  function paint(){
+    $('vExpense').textContent=fmt(state.expense);
+    $('vAssets').textContent=fmt(state.assets);
+  }
+  document.querySelectorAll('[data-step]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var p=b.dataset.step.split(':'), k=p[0], s=parseFloat(p[1]);
+      var v=state[k]+s;
+      if(k==='expense') v=Math.max(5000,v);
+      if(k==='assets') v=Math.max(0,v);
+      state[k]=v; paint();
+    });
+  });
+
+  function paintBuckets(){
+    var b=buckets();
+    $('b1v').textContent=wan(b.b1);
+    $('b2v').textContent=wan(b.b2);
+    $('b3v').textContent = b.invest>0 ? wan(b.invest) : '0 萬';
+  }
+
+  function renderResult(){
+    var b=buckets();
+    $('r1').textContent=wan(b.r1);
+    $('r2').textContent=wan(b.r2);
+    $('r3').textContent=wan(b.r3);
+    var t=b.total||1;
+    [['s1',b.r1],['s2',b.r2],['s3',b.r3]].forEach(function(p,i){
+      var el=$(p[0]); el.style.width='0';
+      setTimeout(function(){ el.style.width=(p[1]/t*100)+'%'; }, 80+i*180);
+    });
+
+    var annual = state.expense*12/10000;              // 一年要花（萬）
+    var years = annual>0 ? b.invest/annual : 0;        // 投資桶夠花幾年
+    $('resSub').textContent='總共 '+wan(b.total)+'，每月花 '+fmt(state.expense)+' 元。';
+
+    var cls = !b.enough ? 'warn' : (years<12 ? 'warn' : 'ok');
+    var yearTxt = !b.enough ? '不夠分' : (years>=40 ? '40 年以上' : Math.floor(years)+' 年');
+    $('calc').innerHTML =
+      '<div class="cr"><span>一年要花</span><b>'+wan(annual)+'</b></div>'+
+      '<div class="cr"><span>前面兩個桶撐得住</span><b>3 年半</b></div>'+
+      '<div class="cr"><span>之後要靠投資桶</span><b>'+wan(b.invest)+'</b></div>'+
+      '<div class="cr key"><span>投資桶大約夠花</span><b class="'+cls+'">'+yearTxt+'</b></div>';
+
+    if(!b.enough){
+      $('resMsg').innerHTML='<b>現在的錢，連前面兩個桶都裝不滿。</b><br>也就是說，沒有餘裕拿去投資。要先想辦法少花一點，或多一點收入。';
+    }else if(years<12){
+      $('resMsg').innerHTML='前兩桶撐 3 年半，投資桶再撐 '+Math.floor(years)+' 年，<b>合計大約 '+Math.floor(years+3.5)+' 年</b>。<br>如果想撐到 90 歲以後，這樣還不太夠——<b>每月少花兩三千，年數就會明顯拉長</b>。';
+    }else{
+      $('resMsg').innerHTML='前兩桶撐 3 年半，投資桶再撐 '+(years>=40?'40 年以上':Math.floor(years)+' 年')+'。<br><b>看起來是夠的。</b>接下來只要一年看一次就好。';
+    }
+  }
+
+  var YEARS=[
+    {lvl:32, arrow:true,  msg:'市場好的時候，<br>從投資桶賣一點，<b>把生活桶補回三年</b>。'},
+    {lvl:14, arrow:false, msg:'大跌的時候，<br><b>什麼都不要做</b>。靠生活桶撐過去，等它回來。'}
+  ];
+  var curYear=0;
+  function yearCase(i){
+    curYear=i; var y=YEARS[i];
+    var l=$('lvl');
+    l.setAttribute('height', y.lvl);
+    l.setAttribute('y', 110-y.lvl);
+    $('arrow').style.opacity = y.arrow?'1':'.15';
+    $('arrowh').style.opacity = y.arrow?'1':'.15';
+    $('yearMsg').innerHTML=y.msg;
+  }
+  document.querySelectorAll('[data-year]').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-year]').forEach(function(x){x.setAttribute('aria-pressed','false')});
+      b.setAttribute('aria-pressed','true');
+      yearCase(parseInt(b.dataset.year,10));
+    });
+  });
+
+  paint(); show(0);
+})();
+</script>
+<script src="progress.js"></script>
+</body>
+</html>
