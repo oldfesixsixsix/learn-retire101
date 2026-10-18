@@ -1,0 +1,11 @@
+{
+  "name": "retirement-planning-101",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy --env production"
+  },
+  "devDependencies": {
+    "wrangler": "^4.149.0"
+  }
+}
